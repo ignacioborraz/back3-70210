@@ -4,5 +4,4 @@ process.on("message", (message) => {
     result += 1;
   }
   process.send(result);
-  process.exit();
 });
