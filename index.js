@@ -5,6 +5,7 @@ import router from "./src/routers/index.router.js";
 import env from "./src/utils/env.util.js";
 import cookieParser from "cookie-parser";
 import compression from "express-compression";
+import errorHandler from "./src/middlewares/errorHandler.mid.js";
 
 const server = express();
 const port = env.PORT || 8080;
@@ -22,3 +23,4 @@ server.use(express.urlencoded({ extended: true }));
 server.listen(port, ready);
 
 server.use("/api", router);
+server.use(errorHandler)
