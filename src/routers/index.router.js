@@ -1,10 +1,12 @@
 import { Router } from "express";
 import productsRouter from "./products.router.js";
+import sessionsRouter from "./sessions.router.js";
 import { fork } from "child_process";
 
 const router = Router();
 
 router.use("/products", productsRouter);
+router.use("/sessions", sessionsRouter);
 router.get("/sum", (req, res) => {
   try {
     const childProcess = fork("./src/process/sum.proc.js");

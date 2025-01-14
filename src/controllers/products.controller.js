@@ -1,9 +1,12 @@
+import Product from "../dao/models/product.model.js";
 import {
   create,
   createMock,
   createMocks,
   read,
 } from "../services/products.service.js";
+import CustomError from "../utils/errors/custom.error.js";
+import { notFound } from "../utils/errors/dictionary.error.js";
 
 const createProduct = async (req, res) => {
   try {
@@ -15,9 +18,31 @@ const createProduct = async (req, res) => {
   }
 };
 
+const readOneProduct = async (req, res) => {
+  try {
+    const { pid } = req.params;
+    const one = await Product.findById(pid);
+    if (one) {
+      return res.status(200).json({ message: "Read!", response: one });
+    } else {
+      //return res.status(404).json({ message: "Not found!"})
+      //return res.status(notFound.statusCode).json({ message: notFound.message})
+      //const { statusCode, message } = notFound;
+      //return res.status(statusCode).json({ message });
+      CustomError.new(notFound)
+    }
+  } catch (error) {
+    console.log(error);
+    console.log(error.message);
+    console.log(error.statusCode);
+    const { statusCode, message } = error;
+    return res.status(statusCode).json({ message });
+  }
+};
+
 const readProducts = async (req, res) => {
   try {
-    const { page } = req.query
+    const { page } = req.query;
     const all = await read(page);
     return res.status(200).json({ message: "Read!", response: all });
   } catch (error) {
@@ -44,4 +69,10 @@ const createMockProducts = async (req, res) => {
   }
 };
 
-export { createProduct, readProducts, createMockProduct, createMockProducts };
+export {
+  createProduct,
+  readProducts,
+  createMockProduct,
+  createMockProducts,
+  readOneProduct,
+};
