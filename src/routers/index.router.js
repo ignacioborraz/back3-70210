@@ -2,6 +2,7 @@ import { Router } from "express";
 import productsRouter from "./products.router.js";
 import sessionsRouter from "./sessions.router.js";
 import { fork } from "child_process";
+import { dividir } from "calculator-70210";
 
 const router = Router();
 
@@ -18,6 +19,15 @@ router.get("/sum", (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });
+  }
+});
+router.get("/dividir/:n1/:n2", (req, res, next) => {
+  try {
+    const { n1, n2 } = req.params;
+    const resultado = dividir(n1, n2);
+    return res.status(200).json({ resultado });
+  } catch (error) {
+    next(error);
   }
 });
 
