@@ -7,12 +7,17 @@
   "scripts": {
     "start": "node ./index.js --mode prod",
     "dev": "node --watch ./index.js --mode dev",
-    "tdd": "node ./test/suma.tdd.js"
+    "tdd": "node ./test/suma.tdd.js",
+    "quicksimplex": "artillery quick --count 100 --num 5 'http://localhost:8080/api/simplex' -o ./test/artillery/simplex.json",
+    "quickcomplex": "artillery quick --count 100 --num 5 'http://localhost:8080/api/complex' -o ./test/artillery/complex.json",
+    "performance": "artillery run ./test/artillery/flow.yaml --output ./test/artillery/flow.json",
+    "report": "artillery report ./test/artillery/flow.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "artillery-plugin-metrics-by-endpoint": "^1.16.0",
     "bcrypt": "^5.1.1",
     "calculator-70210": "^2.1.1",
     "commander": "^13.0.0",
@@ -23,7 +28,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.3",
     "mongoose-paginate-v2": "^1.9.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.3.0"

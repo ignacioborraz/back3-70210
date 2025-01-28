@@ -30,5 +30,19 @@ router.get("/dividir/:n1/:n2", (req, res, next) => {
     next(error);
   }
 });
+router.get("/simplex", (req, res) => {
+  let result = 0;
+  for (let i = 1; i < 100; i++) {
+    result += i;
+  }
+  return res.status(200).json({ result });
+});
+router.get("/complex", (req, res) => {
+  let result = 0;
+  for (let i = 1; i < 10000000; i++) {
+    result += i;
+  }
+  return res.status(200).json({ result });
+});
 
 export default router;

@@ -1,0 +1,26 @@
+config:
+  plugging:
+    metrics-by-endpoint: {}
+  target: http://localhost:8080/api
+  phases: 
+    - duration: 10
+      arrivalRate: 100
+scenarios:
+  - name: read all products & read one product
+    flow:
+      - log: read all products
+      - get:
+          url: /products
+      - log: read one product
+      - get:
+          url: /products/67805a36d081d21733596a5b
+  - name: login & read products
+    flow:
+      - log: login
+      - post:
+          url: /sessions/login
+          json:
+            email: igna@coder.com
+            password: hola1234
+      - get:
+          url: /products

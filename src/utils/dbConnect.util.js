@@ -1,12 +1,13 @@
 import { connect } from "mongoose";
 import env from "./env.util.js";
+import loggerUtil from "./logger.util.js";
 
 async function dbConnect() {
   try {
     await connect(env.MONGO_LINK);
-    console.log("database connected");
+    loggerUtil.INFO("database connected");
   } catch (error) {
-    console.log(error);
+    loggerUtil.WARN(error.message);
   }
 }
 
