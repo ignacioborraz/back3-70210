@@ -11,7 +11,13 @@
     "quicksimplex": "artillery quick --count 100 --num 5 'http://localhost:8080/api/simplex' -o ./test/artillery/simplex.json",
     "quickcomplex": "artillery quick --count 100 --num 5 'http://localhost:8080/api/complex' -o ./test/artillery/complex.json",
     "performance": "artillery run ./test/artillery/flow.yaml --output ./test/artillery/flow.json",
-    "report": "artillery report ./test/artillery/flow.json"
+    "report": "artillery report ./test/artillery/flow.json",
+    "buildimage": "docker build -t coder-server .",
+    "container1": "docker run -p 8080:8080 coder-server",
+    "container2": "docker run -p 8090:8080 coder-server",
+    "container3": "docker run -p 8070:8080 coder-server",
+    "tagcontainer": "docker tag coder-server ignacioborraz/coder-server:1.0.0",
+    "pushcontainer": "docker push ignacioborraz/coder-server:1.0.0"
   },
   "keywords": [],
   "author": "",
