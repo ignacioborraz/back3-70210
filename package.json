@@ -17,7 +17,11 @@
     "container2": "docker run -p 8090:8080 coder-server",
     "container3": "docker run -p 8070:8080 coder-server",
     "tagcontainer": "docker tag coder-server ignacioborraz/coder-server:1.0.0",
-    "pushcontainer": "docker push ignacioborraz/coder-server:1.0.0"
+    "pushcontainer": "docker push ignacioborraz/coder-server:1.0.0",
+    "apply": "kubectl apply -f ./manifest.yaml",
+    "pods": "kubectl get pods",
+    "deployments": "kubectl get deployments",
+    "services": "kubectl get services"
   },
   "keywords": [],
   "author": "",
