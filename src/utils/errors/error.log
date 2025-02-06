@@ -2,3 +2,6 @@
 [33mWARN[39m: Not Found
 [31mFATAL[39m: Cast to ObjectId failed for value "67805a36d081d21733596a5" (type string) at path "_id" for model "products"
 [31mFATAL[39m: Cast to ObjectId failed for value "67805a36d081d21733596a5" (type string) at path "_id" for model "products"
+[33mWARN[39m: Bad Auth
+[33mWARN[39m: Bad Auth
+[33mWARN[39m: Bad Auth

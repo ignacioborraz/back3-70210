@@ -1,0 +1,185 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Direccion de correo electronico del usuario
+        password:
+          type: string
+          description: Contraseña del usuario para iniciar sesión correctamente
+        role:
+          type: string
+          description: Rol que asigna permisos al usuario
+      example:
+        email: igna@coder.com
+        password: hola1234
+        role: user
+  otherschemas:
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Direccion de correo electronico del usuario
+        password:
+          type: string
+          description: Contraseña del usuario para iniciar sesión correctamente
+      example:
+        email: igna@coder.com
+        password: hola1234
+  responses:
+    register:
+      type: object
+      properties:
+        response:
+          description: Identificador del usuario registrado
+          type: string
+        message:
+          description: Mensaje de éxito del registro
+          type: string
+      example:
+        response: 6786dc7e3fd032ba85de16ee
+        message: User Registered!
+    login:
+      type: object
+      properties:
+        response:
+          description: Identificador del usuario registrado
+          type: string
+        message:
+          description: Mensaje de éxito del inicio de sesión
+          type: string
+      example:
+        response: 6786dc7e3fd032ba85de16ee
+        message: User logged in!
+    signout:
+      type: object
+      properties:
+        response:
+          description: Identificador del usuario que cerró sesión
+          type: string
+        message:
+          description: Mensaje de éxito del cerrado de sesión
+          type: string
+      example:
+        response: 6786dc7e3fd032ba85de16ee
+        message: User signed out!
+    badauth:
+      type: object
+      properties:
+        message:
+          description: Mensaje de error de autenticación
+          type: string
+      example:
+        message: Bad Auth
+    forbidden:
+      type: object
+      properties:
+        message:
+          description: Mensaje de error de autorización
+          type: string
+      example:
+        message: Forbidden
+    fatal:
+      type: object
+      properties:
+        message:
+          description: Mensaje de error del servidor
+          type: string
+      example:
+        message: Fatal Error
+paths:
+  /api/auth/register:
+    post:
+      summary: Registra un usuario en la base datos (incluye hash de contraseña)
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        201:
+          description: Exito en el registro de un usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/register'
+        401:
+          description: Falta de datos o error por usuario ya registrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/badauth'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+  /api/auth/login:
+    post:
+      summary: Inicia sesión de un usuario previamente registrado (incluye guardado de token en cookie)
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/otherschemas/Login'
+      responses:
+        200:
+          description: Exito en el inicio de sesión de un usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/login'
+        401:
+          description: Falta de datos o error por usuario no registrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/badauth'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'
+  /api/auth/signout:
+    post:
+      summary: Cierra sesión de un usuario (borra la cookie con el token)      
+      tags:
+        - Auth
+      responses:
+        200:
+          description: Exito en el cierre de sesión de un usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/signout'
+        401:
+          description: Falta de token en la solicitud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/badauth'
+        403:
+          description: Token vencido o dañado en la solicitud
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/forbideen'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'

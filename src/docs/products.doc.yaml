@@ -1,0 +1,89 @@
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Breve descripción del producto
+        stock:
+          type: number
+          description: Cantidad de unidades para vender
+        price:
+          type: number
+          description: Cantidad de dolares que vale una unidad de producto
+        image:
+          type: string
+          description: Imagen del producto
+        category:
+          type: string
+          description: Categoria a la cual pertenece el producto
+      example:
+        name: Zapato LadyStork
+        description: De cuero ecológico, color negro
+        stock: 100
+        price: 100
+        image: https://www.mountaingoatsoftware.com/uploads/blog/2016-09-06-what-is-a-product.png
+        category: zapatos
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+paths:
+  /api/products:
+    post:
+      summary: Crea un nuevo producto en la correspondiente colección de mongo
+      tags:
+        - Products
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+    get:
+      summary: Lee todos los productos paginados
+      tags:
+        - Products
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: number
+  /api/products/mocks:
+    get:
+      summary: Crea un producto de imitación
+      tags:
+        - Products
+      security:
+        - cookieAuth: []
+  /api/products/mocks/{quantity}:
+    get:
+      summary: Crea la cantidad "quantity" de productos de imitación
+      tags:
+        - Products
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: quantity
+          in: path
+          required: true
+          schema:
+            type: number
+  /api/products/{pid}:
+    get:
+      summary: Leer el producto del correspondiente identificador
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string

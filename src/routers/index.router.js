@@ -7,7 +7,7 @@ import { dividir } from "calculator-70210";
 const router = Router();
 
 router.use("/products", productsRouter);
-router.use("/sessions", sessionsRouter);
+router.use("/auth", sessionsRouter);
 router.get("/sum", (req, res) => {
   try {
     const childProcess = fork("./src/process/sum.proc.js");
