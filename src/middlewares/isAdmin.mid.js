@@ -9,7 +9,7 @@ function isAdmin(req, res, next) {
       CustomError.new(badAuth);
     }
     const data = verifyTokenUtil(token);
-    if (!data && data.role !== "admin") {
+    if (!data && data.role.toLowerCase() !== "admin") {
       CustomError.new(forbidden);
     }
     req.user = data;
