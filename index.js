@@ -42,3 +42,5 @@ server.use(httpLogger);
 server.use("/api/docs", serve, setup(docSpec));
 server.use("/api", router);
 server.use(errorHandler);
+
+export default server
