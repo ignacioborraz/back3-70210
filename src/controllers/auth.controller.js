@@ -1,18 +1,15 @@
 import User from "../dao/models/user.model.js";
-import { loginService, registerService } from "../services/sessions.service.js";
+import { loginService, registerService } from "../services/auth.service.js";
 import CustomError from "../utils/errors/custom.error.js";
 import { badAuth, forbidden } from "../utils/errors/dictionary.error.js";
-import { createHashUtil, verifyHashUtil } from "../utils/hash.util.js";
-import { createTokenUtil, verifyTokenUtil } from "../utils/token.util.js";
+import { verifyTokenUtil } from "../utils/token.util.js";
 
 const register = async (req, res, next) => {
   try {
     const { email, password, role } = req.body;
-    /* armar middleware para esta condicion areEmailAndPassword.mid.js */
     if (!email || !password) {
       CustomError.new(badAuth);
     }
-    /* isRegistered */
     const one = await User.findOne({ email });
     if (one) {
       CustomError.new(badAuth);
@@ -27,11 +24,9 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    /* armar middleware para esta condicion areEmailAndPassword.mid.js */
     if (!email || !password) {
       CustomError.new(badAuth);
     }
-    /* isUser */
     const one = await User.findOne({ email });
     if (!one) {
       CustomError.new(badAuth);

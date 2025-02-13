@@ -1,45 +1,20 @@
-import Product from "../dao/models/product.model.js";
-import {
-  create,
-  createMock,
-  createMocks,
-  read,
-} from "../services/products.service.js";
+import { createOne, readAll, readById, updateById, destroyById, createMock, createMocks } from "../services/products.service.js";
 import CustomError from "../utils/errors/custom.error.js";
 import { notFound } from "../utils/errors/dictionary.error.js";
 
-const createProduct = async (req, res, next) => {
+const createOneProduct = async (req, res, next) => {
   try {
     const data = req.body;
-    const one = await create(data);
+    const one = await createOne(data);
     return res.status(201).json({ message: "Created!", response: one });
   } catch (error) {
     next(error);
   }
 };
-
-const readOneProduct = async (req, res, next) => {
+const readAllProducts = async (req, res, next) => {
   try {
-    const { pid } = req.params;
-    const one = await Product.findById(pid);
-    if (one) {
-      return res.status(200).json({ message: "Read!", response: one });
-    } else {
-      //return res.status(404).json({ message: "Not found!"})
-      //return res.status(notFound.statusCode).json({ message: notFound.message})
-      //const { statusCode, message } = notFound;
-      //return res.status(statusCode).json({ message });
-      CustomError.new(notFound);
-    }
-  } catch (error) {
-    next(error);
-  }
-};
-
-const readProducts = async (req, res, next) => {
-  try {
-    const { page } = req.query;
-    const all = await read(page);
+    const { page } = req.params;
+    const all = await readAll(page);
     if (all.docs.length > 0) {
       return res.status(200).json({ message: "Read!", response: all });
     } else {
@@ -49,7 +24,46 @@ const readProducts = async (req, res, next) => {
     next(error);
   }
 };
-
+const readProductById = async (req, res, next) => {
+  try {
+    const { pid } = req.params;
+    const one = await readById(pid);
+    if (one) {
+      return res.status(200).json({ message: "Read!", response: one });
+    } else {
+      CustomError.new(notFound);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+const updateProductById = async (req, res, next) => {
+  try {
+    const { pid } = req.params;
+    const data = req.body;
+    const one = await updateById(pid, data);
+    if (one) {
+      return res.status(200).json({ message: "Updated!", response: one });
+    } else {
+      CustomError.new(notFound);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+const destroyProductById = async (req, res, next) => {
+  try {
+    const { pid } = req.params;
+    const one = await destroyById(pid);
+    if (one) {
+      return res.status(200).json({ message: "Destroyed!", response: one });
+    } else {
+      CustomError.new(notFound);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 const createMockProduct = async (req, res, next) => {
   try {
     const one = await createMock();
@@ -58,7 +72,6 @@ const createMockProduct = async (req, res, next) => {
     next(error);
   }
 };
-
 const createMockProducts = async (req, res, next) => {
   try {
     const { quantity } = req.params;
@@ -69,10 +82,4 @@ const createMockProducts = async (req, res, next) => {
   }
 };
 
-export {
-  createProduct,
-  readProducts,
-  createMockProduct,
-  createMockProducts,
-  readOneProduct,
-};
+export { createOneProduct, readAllProducts, readProductById, updateProductById, destroyProductById, createMockProduct, createMockProducts };

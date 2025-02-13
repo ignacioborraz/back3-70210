@@ -1,13 +1,15 @@
 import { Router } from "express";
 import productsRouter from "./products.router.js";
-import sessionsRouter from "./sessions.router.js";
+import usersRouter from "./users.router.js";
+import authRouter from "./auth.router.js";
 import { fork } from "child_process";
 import { dividir } from "calculator-70210";
 
 const router = Router();
 
 router.use("/products", productsRouter);
-router.use("/auth", sessionsRouter);
+router.use("/users", usersRouter);
+router.use("/auth", authRouter);
 router.get("/sum", (req, res) => {
   try {
     const childProcess = fork("./src/process/sum.proc.js");

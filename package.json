@@ -23,7 +23,8 @@
     "deployments": "kubectl get deployments",
     "services": "kubectl get services",
     "mocha": "mocha ./test/mocha",
-    "chai": "mocha ./test/chai"
+    "chai": "mocha ./test/chai",
+    "super": "mocha ./test/supertest"
   },
   "keywords": [],
   "author": "",
@@ -48,6 +49,7 @@
   "devDependencies": {
     "@faker-js/faker": "^9.3.0",
     "chai": "^5.1.2",
-    "mocha": "^11.1.0"
+    "mocha": "^11.1.0",
+    "supertest": "^7.0.0"
   }
 }
