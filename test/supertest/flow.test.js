@@ -2,14 +2,13 @@ import "dotenv/config.js";
 import { expect } from "chai";
 import supertest from "supertest";
 import { connect } from "mongoose";
-import User from "../../src/dao/models/user.model.js";
 
 const requester = supertest(`http://localhost:${process.env.PORT}/api`);
 
 describe("Testing Flow", function () {
   before(async () => await connect(process.env.MONGO_LINK));
   const user = { email: "test@coder.com", password: "hola1234" };
-  const product = { name: "zapatillas" }
+  const product = { name: "zapatillas" };
   let producId;
   let cookies = null;
   it("POST /api/auth/login should respond with 200 status code", async () => {
