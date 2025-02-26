@@ -1,0 +1,12 @@
+[33mWARN[39m: Bad Auth
+[33mWARN[39m: Bad Auth
+[33mWARN[39m: Bad Auth
+[33mWARN[39m: Bad Auth
+[33mWARN[39m: Bad Auth
+[33mWARN[39m: Bad Auth
+[33mWARN[39m: Bad Auth
+[33mWARN[39m: Bad Auth
+[31mFATAL[39m: users validation failed: role: `ADMIN` is not a valid enum value for path `role`.
+[33mWARN[39m: Not Found
+[33mWARN[39m: Not Found
+[33mWARN[39m: Not Found

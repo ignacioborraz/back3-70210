@@ -1,0 +1,111 @@
+components:
+  schemas:
+    User:
+      type: Object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        role:
+          type: string
+      example:
+        email: test@coder.com
+        password: hola1234
+        role: admin
+  otherschemas:
+    Login:
+      type: Object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      example:
+        email: test@coder.com
+        password: hola1234
+  responses:
+    register:
+      type: object
+      properties:
+        response:
+          type: string
+        message:
+          type: string
+      example:
+        response: 67af8a844185a5fd2e2a2438
+        message: User Registered!
+    login:
+      type: object
+      properties:
+        response:
+          type: string
+        message:
+          type: string
+      example:
+        response: 67af8a844185a5fd2e2a2438
+        message: User logged in!
+    signout:
+      type: object
+      properties:
+        response:
+          type: string
+        message:
+          type: string
+      example:
+        response: 67af8a844185a5fd2e2a2438
+        message: User signed out!
+    badauth:
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: Bad Auth
+    forbidden:
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: Forbidden
+    fatal:
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: Fatal Error
+paths:
+  /api/auth/register:
+    post:
+      summary: Register an user in database
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        201:
+          description: Successfull registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/register'
+        401:
+          description: Bad Auth - Invalid Credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/badauth'
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/fatal'

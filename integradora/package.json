@@ -1,0 +1,39 @@
+{
+  "name": "back3-70210",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./index.js --mode prod",
+    "dev": "node --watch ./index.js --mode dev",
+    "test": "mocha ./test",
+    "image": "docker build -t integradora .",
+    "retag": "docker tag integradora ignacioborraz/integradora:1.0.1",
+    "push": "docker push ignacioborraz/integradora:1.0.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "commander": "^13.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-compression": "^1.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.3",
+    "mongoose-paginate-v2": "^1.9.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.3.0",
+    "chai": "^5.1.2",
+    "mocha": "^11.1.0",
+    "supertest": "^7.0.0"
+  }
+}
